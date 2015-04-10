@@ -443,7 +443,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#http-keep-alive">HTTP Keep-Alive</a></li>
 <li><a href="#authentication">Authentication</a>
 <ul class="sectlevel2">
-<li><a href="#generating-authentication-signatures">Generating authentication signatures</a></li>
+<li><a href="#auth-signature">Generating authentication signatures</a></li>
 <li><a href="#worked-authentication-example">Worked authentication example</a></li>
 </ul>
 </li>
@@ -456,7 +456,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sectionbody">
 <div class="paragraph">
 <p>The API is hosted at <a href="http://api.pusherapp.com" class="bare">http://api.pusherapp.com</a>, and may be accessed via HTTP or HTTPS.
-All requests MUST be authenticated, as described in <a href="#auth-signature">[auth-signature]</a>.
+All requests MUST be authenticated, as described in <a href="#auth-signature">Generating authentication signatures</a>.
 Parameters MUST be submitted in the query string for GET requests. For POST requests, parameters MAY be submitted in the query string, but SHOULD be submitted in the POST body as a JSON hash (while setting <code>Content-Type: application/json</code>).</p>
 </div>
 <div class="paragraph">
@@ -476,19 +476,19 @@ Parameters MUST be submitted in the query string for GET requests. For POST requ
 <tbody>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">200</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Successful request. Body will contain a JSON hash of response data</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Successful request. Body will contain a JSON hash of response data.</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">400</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Error: details in response body</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Error: details in response body.</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">401</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Authentication error: response body will contain an explanation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Authentication error: response body will contain an explanation.</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">403</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Forbidden: app disabled or over message quota</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Forbidden: app disabled or over message quota.</p></td>
 </tr>
 </tbody>
 </table>
@@ -533,23 +533,23 @@ The event data should not be larger than 10KB. If you attempt to POST an event w
 <tbody>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">name</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Event name (required)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Event name (required).</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">data</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Event data (required) - limited to 10KB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Event data (required) - limited to 10KB.</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">channels</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Array of one or more channel names - limited to 10 channels</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Array of one or more channel names - limited to 10 channels.</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">channel</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Channel name if publishing to a single channel (can be used instead of channels)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Channel name if publishing to a single channel (can be used instead of channels).</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">socked_id</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Excludes the event from being sent to a specific connection</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Excludes the event from being sent to a specific connection.</p></td>
 </tr>
 </tbody>
 </table>
@@ -593,7 +593,7 @@ The event data should not be larger than 10KB. If you attempt to POST an event w
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">filter_by_prefix</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Filter the returned channels by a specific prefix. For example in order to return only presence channels you would set <code>filter_by_prefix=presence-</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Filter the returned channels by a specific prefix. For example in order to return only presence channels you would set <code>filter_by_prefix=presence-</code>.</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">info</p></th>
@@ -622,7 +622,7 @@ The event data should not be larger than 10KB. If you attempt to POST an event w
 <th class="tableblock halign-left valign-top"><p class="tableblock">user_count</p></th>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Presence</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Number of <strong>distinct</strong>  sers currently subscribed to this channel (a single user may be subscribed many times, but will only count as one)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number of <strong>distinct users</strong> currently subscribed to this channel (a single user may be subscribed many times, but will only count as one).</p></td>
 </tr>
 </tbody>
 </table>
@@ -700,7 +700,7 @@ The event data should not be larger than 10KB. If you attempt to POST an event w
 <th class="tableblock halign-left valign-top"><p class="tableblock">user_count</p></th>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Presence</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Number of <strong>distinct users</strong> currently subscribed to this channel (a single user may be subscribed many times, but will only count as one)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number of <strong>distinct users</strong> currently subscribed to this channel (a single user may be subscribed many times, but will only count as one).</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">subscription_count</p></th>
@@ -767,19 +767,19 @@ requests.</p>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">auth_key</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Your application key</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Your application key.</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">auth_timestamp</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The number of seconds since January 1, 1970 00:00:00 GMT. The server will only accept requests where the timestamp is within 600s of the current time</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The number of seconds since January 1, 1970 00:00:00 GMT. The server will only accept requests where the timestamp is within 600s of the current time.</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">auth_version</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Authentication version, currently 1.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Authentication version, currently 1.0.</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">body_md5</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock">If the request body is nonempty (for example for POST requests to <code>/events</code>), this parameter must contain the hexadecimal MD5 hash of the body</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If the request body is nonempty (for example for POST requests to <code>/events</code>), this parameter must contain the hexadecimal MD5 hash of the body.</p></td>
 </tr>
 </tbody>
 </table>
@@ -787,20 +787,20 @@ requests.</p>
 <p>Once all the above parameters have been added to the request, a signature is calculated - <code>auth_signature</code>, described below.</p>
 </div>
 <div class="sect2">
-<h3 id="generating-authentication-signatures">Generating authentication signatures</h3>
+<h3 id="auth-signature">Generating authentication signatures</h3>
 <div class="paragraph">
 <p>The signature is a HMAC SHA256 hex digest. This is generated by signing a string made up of the following components concatenated with newline characters <code>\n</code>.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The uppercase request method (e.g. <code>POST</code>)</p>
+<p>The uppercase request method (e.g. <code>POST</code>).</p>
 </li>
 <li>
-<p>The request path (e.g. <code>/some/resource</code>)</p>
+<p>The request path (e.g. <code>/some/resource</code>).</p>
 </li>
 <li>
-<p>The query parameters sorted by key, with keys converted to lowercase, then joined as in the query string. Note that the string must not be url escaped (e.g. given the keys <code>auth_key</code>: <code>foo</code>, <code>Name</code>: <code>Something else</code>, you get <code>auth_key=foo&amp;name=Something else</code>)</p>
+<p>The query parameters sorted by key, with keys converted to lowercase, then joined as in the query string. Note that the string must not be url escaped (e.g. given the keys <code>auth_key</code>: <code>foo</code>, <code>Name</code>: <code>Something else</code>, you get <code>auth_key=foo&amp;name=Something else</code>).</p>
 </li>
 </ul>
 </div>
@@ -886,7 +886,7 @@ Content-Type: application/json
 </div>
 </div>
 <div class="paragraph">
-<p>If you&#8217;re having difficulty generating the correct signature in your library please take a look at this <a href="http://gist.github.com/376898">example</a> [gist].</p>
+<p>If you&#8217;re having difficulty generating the correct signature in your library please take a look at this <a href="http://gist.github.com/376898">example gist</a>.</p>
 </div>
 </div>
 </div>
@@ -895,7 +895,7 @@ Content-Type: application/json
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2015-04-10 14:33:07 BST
+Last updated 2015-04-10 14:59:34 BST
 </div>
 </div>
 </body>
