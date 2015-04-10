@@ -495,13 +495,16 @@ Parameters MUST be submitted in the query string for GET requests. For POST requ
 <div class="paragraph">
 <p>Other status codes are documented under the appropriate APIs.</p>
 </div>
+<div class="paragraph">
+<p>All responses from the Pusher API are <strong>strictly JSON</strong>. The top level of which will always be a JSON object.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="events">Events</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>An event consists of a name and data (typically JSON) which may be sent to all subscribers to a particular channel or channels. This is conventionally known as triggering an event.</p>
+<p>An event consists of a name and data (typically JSON) which may be sent to all subscribers to a particular channel or channels. This is conventionally known as <em>triggering</em> an event.</p>
 </div>
 <div class="sect2">
 <h3 id="post-event-trigger-an-event">POST event (trigger an event)</h3>
@@ -512,7 +515,7 @@ Parameters MUST be submitted in the query string for GET requests. For POST requ
 </div>
 <div class="paragraph">
 <p>Triggers an event on one or more channels.
-The event data should not be larger than 10KB. If you attempt to POST an event with a larger data parameter you will receive a 413 error code. If you have a use case which requires a larger messages size please <a href="https://support.pusher.com">get in touch</a>.</p>
+The event data should <strong>not be larger than 10KB</strong>. If you attempt to POST an event with a larger data parameter you will receive a 413 error code. If you have a use case which requires a larger messages size please <a href="https://support.pusher.com">get in touch</a>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Note:</strong> For POST requests we recommend including parameters in the JSON body. If using the query string, arrays should be sent as channels[]=channel1&amp;channels[]=channel2; this is more verbose than the JSON representation.</p>
@@ -521,43 +524,53 @@ The event data should not be larger than 10KB. If you attempt to POST an event w
 <h4 id="request">Request</h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter</th>
 <th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">name</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Event name (required).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Event name.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">data</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Event data (required) - limited to 10KB.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Event data - limited to 10KB.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">channels</p></th>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Array of one or more channel names - limited to 10 channels.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes<sup>*</sup></p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">channel</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Channel name if publishing to a single channel (can be used instead of channels).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Channel name if publishing to a single channel.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes<sup>*</sup></p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">socked_id</p></th>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Excludes the event from being sent to a specific connection.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
 </tr>
 </tbody>
 </table>
+<div class="paragraph">
+<p><sup>*</sup>: Use the <code>channel</code> parameter if publishing to a single channel, otherwise use <code>channels</code> to publish to multiple channels.</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="successful-response">Successful Response</h4>
 <div class="paragraph">
-<p>The event has been received and will be send asynchronously to all sockets. Response is an empty JSON hash.</p>
+<p>The event has been received and will be sent asynchronously to all sockets. Response is an <strong>empty JSON hash</strong>.</p>
 </div>
 </div>
 </div>
@@ -583,21 +596,25 @@ The event data should not be larger than 10KB. If you attempt to POST an event w
 <h4 id="request-2">Request</h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
 </colgroup>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Parameter</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">filter_by_prefix</p></th>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Filter the returned channels by a specific prefix. For example in order to return only presence channels you would set <code>filter_by_prefix=presence-</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">info</p></th>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A comma separated list of attributes which should be returned for each channel. If this parameter is missing, an empty hash of attributes will be returned for each channel.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
 </tr>
 </tbody>
 </table>
@@ -706,12 +723,12 @@ The event data should not be larger than 10KB. If you attempt to POST an event w
 <th class="tableblock halign-left valign-top"><p class="tableblock">subscription_count</p></th>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">All</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Number of <strong>connections</strong> currently subscribed to this channel.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[BETA] Number of connections currently subscribed to this channel. This attribute is not available by default; please contact <a href="mailto:support@pusher.com">support@pusher.com</a> if you would like to beta test this feature.</p></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
-<p>Requesting an attribute which is not available for the requested channel will return an error (for example requesting a the <code>user_count</code> for a public channel).</p>
+<p>Requesting an attribute which is not available for the requested channel will return an error (for example requesting the <code>user_count</code> for a public channel).</p>
 </div>
 </div>
 <div class="sect3">
@@ -840,7 +857,7 @@ secret  7ad3773142a6692b25b8</pre>
 <p>Note that these parameters may be provided in the query string, although this is discouraged.</p>
 </div>
 <div class="paragraph">
-<p>Authentication parameters should be added (assume that these are included in the query string, so the body is unchanged from above). Since the body is non-empty a body_md5 parameter should be added</p>
+<p>Authentication parameters should be added (assume that these are included in the query string, so the body is unchanged from above). Since the body is non-empty a <code>body_md5</code> parameter should be added</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -895,7 +912,7 @@ Content-Type: application/json
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2015-04-10 14:59:34 BST
+Last updated 2015-04-10 16:07:57 BST
 </div>
 </div>
 </body>

@@ -28,7 +28,6 @@ All requests MUST be authenticated, as described in <<auth-signature>>.
 Parameters MUST be submitted in the query string for GET requests. For POST requests, parameters MAY be submitted in the query string, but SHOULD be submitted in the POST body as a JSON hash (while setting `Content-Type: application/json`).
 
 
-
 HTTP status codes are used to indicate the success or otherwise of requests. The following status are common:
 
 |===
@@ -42,38 +41,40 @@ h|403   |Forbidden: app disabled or over message quota.
 
 Other status codes are documented under the appropriate APIs.
 
+All responses from the Pusher API are *strictly JSON*. The top level of which will always be a JSON object.
 
 == Events
 
-An event consists of a name and data (typically JSON) which may be sent to all subscribers to a particular channel or channels. This is conventionally known as triggering an event.
+An event consists of a name and data (typically JSON) which may be sent to all subscribers to a particular channel or channels. This is conventionally known as _triggering_ an event.
 
 === POST event (trigger an event)
 
 ----
 POST /apps/[app_id]/events
 ----
+
 Triggers an event on one or more channels.
-The event data should not be larger than 10KB. If you attempt to POST an event with a larger data parameter you will receive a 413 error code. If you have a use case which requires a larger messages size please https://support.pusher.com[get in touch].
+The event data should *not be larger than 10KB*. If you attempt to POST an event with a larger data parameter you will receive a 413 error code. If you have a use case which requires a larger messages size please https://support.pusher.com[get in touch].
 
 *Note:* For POST requests we recommend including parameters in the JSON body. If using the query string, arrays should be sent as channels[]=channel1&amp;channels[]=channel2; this is more verbose than the JSON representation.
 
 ==== Request
 
 |===
-|Parameter  |Description
+|Parameter  |Description |Required
 
-h|name      |Event name (required).
-h|data      |Event data (required) - limited to 10KB.
-h|channels  |Array of one or more channel names - limited to 10 channels.
-h|channel   |Channel name if publishing to a single channel (can be used instead of channels).
-h|socked_id |Excludes the event from being sent to a specific connection.
+h|name      |Event name.  |Yes
+h|data      |Event data - limited to 10KB. |Yes
+h|channels  |Array of one or more channel names - limited to 10 channels. |Yes^*^
+h|channel   |Channel name if publishing to a single channel. |Yes^*^
+h|socked_id |Excludes the event from being sent to a specific connection. |No
 |===
 
+^*^: Use the `channel` parameter if publishing to a single channel, otherwise use `channels` to publish to multiple channels.
 
 ==== Successful Response
 
-The event has been received and will be send asynchronously to all sockets. Response is an empty JSON hash.
-
+The event has been received and will be sent asynchronously to all sockets. Response is an *empty JSON hash*.
 
 == Channels
 
@@ -89,12 +90,10 @@ Allows fetching a hash of occupied channels (optionally filtered by prefix), and
 ==== Request
 
 |===
-|Parameter         |Description
-h|filter_by_prefix |Filter the returned channels by a specific prefix. For example in order to return only presence channels you would set `filter_by_prefix=presence-`.
-h|info             |A comma separated list of attributes which should be returned for each channel. If this parameter is missing, an empty hash of attributes will be returned for each channel.
+|Parameter         |Description |Required
+h|filter_by_prefix |Filter the returned channels by a specific prefix. For example in order to return only presence channels you would set `filter_by_prefix=presence-`. |No
+h|info             |A comma separated list of attributes which should be returned for each channel. If this parameter is missing, an empty hash of attributes will be returned for each channel. |No
 |===
-
-
 
 ==== Available info attributes
 
@@ -143,10 +142,10 @@ h|info     |A comma separated list of attributes which should be returned for th
 |===
 |Attribute           |Type    |Applicable channels |Description
 h|user_count         |Integer |Presence            |Number of *distinct users* currently subscribed to this channel (a single user may be subscribed many times, but will only count as one).
-h|subscription_count |Integer |All                 |Number of *connections* currently subscribed to this channel.
+h|subscription_count |Integer |All                 |[BETA] Number of connections currently subscribed to this channel. This attribute is not available by default; please contact support@pusher.com if you would like to beta test this feature.
 |===
 
-Requesting an attribute which is not available for the requested channel will return an error (for example requesting a the `user_count` for a public channel).
+Requesting an attribute which is not available for the requested channel will return an error (for example requesting the `user_count` for a public channel).
 
 ==== Successful response
 
@@ -223,7 +222,7 @@ Since this is a POST request, the body should contain a hash of parameters encod
 
 Note that these parameters may be provided in the query string, although this is discouraged.
 
-Authentication parameters should be added (assume that these are included in the query string, so the body is unchanged from above). Since the body is non-empty a body_md5 parameter should be added
+Authentication parameters should be added (assume that these are included in the query string, so the body is unchanged from above). Since the body is non-empty a `body_md5` parameter should be added
 
 ----
 auth_key        278d425bdf160c739803
