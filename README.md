@@ -1,4 +1,4 @@
-# The Pusher HTTP REST API Reference
+# The Pusher HTTP API Reference
 
 ## Prerequisites
 
@@ -16,8 +16,7 @@ To edit the docs simply edit the `README.adoc` using the AsciiDoc syntax.
 
 ## Building the Docs
 
-The docs are built using a simple make command. The `MakeFile` first creates
-images for the diagrams defined in `README.adoc` and then generates the HTML
+The docs are built using a simple make command. The `MakeFile` generates the HTML
 document using [Asciidoctor](http://asciidoctor.org/).
 
 From the working directory execute:
@@ -26,4 +25,4 @@ From the working directory execute:
 make
 ```
 
-This will create a `rest_api.html` file which you can then open.
+This will create a `http_api.html` file which you can then open.

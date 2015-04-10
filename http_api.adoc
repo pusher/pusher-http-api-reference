@@ -1,10 +1,10 @@
-= Pusher HTTP REST API Reference
+= Pusher HTTP API Reference
 Pusher Ltd <info@pusher.com>
 v1.0, 2015-10-04
 :page-layout: base
 :page-javascripts: [view-result]
 :description: This document lists all API methods, and details the authentication mechanism.
-:keywords: pusher, http, rest, api, reference
+:keywords: pusher, http, api, reference
 :toc:
 :toc-placement!:
 :experimental:

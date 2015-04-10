@@ -1,2 +1,2 @@
-rest_api.html: rest_api.adoc
-	asciidoctor rest_api.adoc
+http_api.html: http_api.adoc
+    asciidoctor http_api.adoc
