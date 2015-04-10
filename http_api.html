@@ -564,7 +564,7 @@ The event data should <strong>not be larger than 10KB</strong>. If you attempt t
 </tbody>
 </table>
 <div class="paragraph">
-<p><sup>*</sup>: Use the <code>channel</code> parameter if publishing to a single channel, otherwise use <code>channels</code> to publish to multiple channels.</p>
+<p><strong><sup></strong></sup>* - Use the <code>channel</code> parameter if publishing to a single channel, otherwise use <code>channels</code> to publish to multiple channels.</p>
 </div>
 </div>
 <div class="sect3">
@@ -581,6 +581,19 @@ The event data should <strong>not be larger than 10KB</strong>. If you attempt t
 <div class="sectionbody">
 <div class="paragraph">
 <p>Channels are identified by name and are used to determine which messages are delivered to which clients. Security may be added by using private or presence channels (identified by name prefix). Channels are created and destroyed automatically whenever clients subscribe or unsubscribe.</p>
+</div>
+<div class="paragraph">
+<p>Channel types are briefly described below.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Private channels</strong>- These channels should have a <code>private-</code> prefix. They introduce a mechanism which lets your server control access to the data you are broadcasting</p>
+</li>
+<li>
+<p><strong>Presence channels</strong> - These should have a <code>presence-</code> prefix and are an extension of private channels. They let you ‘register’ user information on subscription, and let other members of the channel know who’s online.</p>
+</li>
+</ul>
 </div>
 <div class="sect2">
 <h3 id="get-channels-fetch-info-for-multiple-channels">GET channels (fetch info for multiple channels)</h3>
@@ -912,7 +925,7 @@ Content-Type: application/json
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2015-04-10 16:07:57 BST
+Last updated 2015-04-10 16:36:03 BST
 </div>
 </div>
 </body>

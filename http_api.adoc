@@ -27,7 +27,6 @@ The API is hosted at http://api.pusherapp.com, and may be accessed via HTTP or H
 All requests MUST be authenticated, as described in <<auth-signature>>.
 Parameters MUST be submitted in the query string for GET requests. For POST requests, parameters MAY be submitted in the query string, but SHOULD be submitted in the POST body as a JSON hash (while setting `Content-Type: application/json`).
 
-
 HTTP status codes are used to indicate the success or otherwise of requests. The following status are common:
 
 |===
@@ -70,7 +69,7 @@ h|channel   |Channel name if publishing to a single channel. |Yes^*^
 h|socked_id |Excludes the event from being sent to a specific connection. |No
 |===
 
-^*^: Use the `channel` parameter if publishing to a single channel, otherwise use `channels` to publish to multiple channels.
+*^*^* - Use the `channel` parameter if publishing to a single channel, otherwise use `channels` to publish to multiple channels.
 
 ==== Successful Response
 
@@ -79,6 +78,12 @@ The event has been received and will be sent asynchronously to all sockets. Resp
 == Channels
 
 Channels are identified by name and are used to determine which messages are delivered to which clients. Security may be added by using private or presence channels (identified by name prefix). Channels are created and destroyed automatically whenever clients subscribe or unsubscribe.
+
+Channel types are briefly described below.
+
+* *Private channels*- These channels should have a `private-` prefix. They introduce a mechanism which lets your server control access to the data you are broadcasting
+
+* *Presence channels* - These should have a `presence-` prefix and are an extension of private channels. They let you ‘register’ user information on subscription, and let other members of the channel know who’s online.
 
 === GET channels (fetch info for multiple channels)
 
