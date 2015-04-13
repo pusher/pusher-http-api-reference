@@ -514,8 +514,19 @@ Parameters MUST be submitted in the query string for GET requests. For POST requ
 <p>Triggers an event on one or more channels.
 The event data should not be larger than 10KB. If you attempt to POST an event with a larger data parameter you will receive a 413 error code. If you have a use case which requires a larger messages size please <a href="https://support.pusher.com">get in touch</a>.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
 <div class="paragraph">
-<p><strong>Note:</strong> For POST requests we recommend including parameters in the JSON body. If using the query string, arrays should be sent as channels[]=channel1&amp;channels[]=channel2; this is more verbose than the JSON representation.</p>
+<p>For POST requests we recommend including parameters in the JSON body. If using the query string, arrays should be sent as channels[]=channel1&amp;channels[]=channel2; this is more verbose than the JSON representation.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="sect3">
 <h4 id="request">Request</h4>
@@ -563,17 +574,28 @@ The event data should not be larger than 10KB. If you attempt to POST an event w
 <div class="content">
 <pre class="highlight"><code class="language-json" data-lang="json">{
   "event_ids": {
-    "channel1": "sdfsf",
-    "channel2": "sdfgsfg"
+    "channel1": "eudhq17zta4bz2",
+    "channel2": "eudhq17zta4c75"
   }
 }</code></pre>
 </div>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
 <div class="paragraph">
-<p><strong>Note:</strong> This is a change from the previous versions of the HTTP API as part of the <em>Event Buffer</em> functionality which ensures that events triggered even when a client is offline for a short duration will still be delivered upon reconnection.</p>
+<p>This is a change from the previous versions of the HTTP API as part of the <em>Event Buffer</em> functionality which ensures that events triggered even when a client is offline for a short duration will still be delivered upon reconnection.</p>
 </div>
 <div class="paragraph">
-<p><em>The Pusher application must be on a cluster that has the Event Buffer capability.</em></p>
+<p>The Pusher application must be on a cluster that has the Event Buffer capability.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -816,9 +838,23 @@ requests.</p>
 <p>The request path (e.g. <code>/some/resource</code>).</p>
 </li>
 <li>
-<p>The query parameters sorted by key, with keys converted to lowercase, then joined as in the query string. Note that the string must not be url escaped (e.g. given the keys <code>auth_key</code>: <code>foo</code>, <code>Name</code>: <code>Something else</code>, you get <code>auth_key=foo&amp;name=Something else</code>).</p>
+<p>The query parameters sorted by key, with keys converted to lowercase, then joined as in the query string.</p>
 </li>
 </ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The string must not be url escaped (e.g. given the keys <code>auth_key</code>: <code>foo</code>, <code>Name</code>: <code>Something else</code>, you get <code>auth_key=foo&amp;name=Something else</code>).</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>See below for a worked example.</p>
@@ -889,7 +925,7 @@ auth_version    1.0</pre>
 <pre>POST /apps/3/events?auth_key=278d425bdf160c739803&amp;auth_timestamp=1353088179&amp;auth_version=1.0&amp;body_md5=ec365a775a4cd0599faeb73354201b6f&amp;auth_signature=da454824c97ba181a32ccc17a72625ba02771f50b50e1e7430e47a1f3f457e6c HTTP/1.1
 Content-Type: application/json
 
-{"name":"foo","channels":["project-3"],"data":"{\"some\":\"data\"}"}</pre>
+{"name":"foo", "channels":["project-3"],"data":"{\"some\":\"data\"}"}</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -898,7 +934,7 @@ Content-Type: application/json
 <div class="listingblock">
 <div class="content">
 <pre>$ curl -H "Content-Type: application/json" -d '{"name":"foo","channels":["project-3"],"data":"{\"some\":\"data\"}"}' "http://api.pusherapp.com/apps/3/events?auth_key=278d425bdf160c739803&amp;auth_timestamp=1353088179&amp;auth_version=1.0&amp;body_md5=ec365a775a4cd0599faeb73354201b6f&amp;auth_signature=da454824c97ba181a32ccc17a72625ba02771f50b50e1e7430e47a1f3f457e6c"
-{}</pre>
+{"event_ids": {"project-3": "eudhq17zta4bz2"}}</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -911,7 +947,7 @@ Content-Type: application/json
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2015-04-13 10:54:58 BST
+Last updated 2015-04-13 15:41:07 BST
 </div>
 </div>
 </body>
