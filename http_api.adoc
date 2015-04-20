@@ -274,3 +274,15 @@ $ curl -H "Content-Type: application/json" -d '{"name":"foo","channels":["projec
 
 If you're having difficulty generating the correct signature in your library please take a look at this http://gist.github.com/376898[example gist].
 
+== Changelog
+
+=== Version 2 (???)
+
+Added event buffer support.
+
+Events that have been published have an associated event ID.
+
+=== Version 1
+
+Initial release
+
