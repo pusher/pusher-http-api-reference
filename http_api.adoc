@@ -19,6 +19,14 @@ endif::awestruct[]
 // URLs
 :docs: https://pusher.com/docs
 
+{description}
+
+[NOTE]
+====
+If you're looking to write a client websocket library, you may wish to consult the http://pusher.github.io/pusher-protocol[Pusher Protocol docs]
+====
+
+
 toc::[]
 
 == General
@@ -26,8 +34,6 @@ toc::[]
 The API is hosted at http://api.pusherapp.com, and may be accessed via HTTP or HTTPS.
 All requests MUST be authenticated, as described in <<auth-signature>>.
 Parameters MUST be submitted in the query string for GET requests. For POST requests, parameters MAY be submitted in the query string, but SHOULD be submitted in the POST body as a JSON hash (while setting `Content-Type: application/json`).
-
-
 
 HTTP status codes are used to indicate the success or otherwise of requests. The following status are common:
 
@@ -41,7 +47,6 @@ h|403   |Forbidden: app disabled or over message quota.
 |===
 
 Other status codes are documented under the appropriate APIs.
-
 
 == Events
 
