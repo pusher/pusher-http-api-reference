@@ -23,7 +23,7 @@ endif::awestruct[]
 
 [NOTE]
 ====
-If you're looking to write a client websocket library, you may wish to consult the http://pusher.github.io/pusher-protocol[Pusher Protocol docs]
+If you're looking to write a client websocket library, you may wish to consult the http://pusher.github.io/pusher-socket-protocol[Pusher Protocol docs]
 ====
 
 
