@@ -514,8 +514,19 @@ Parameters MUST be submitted in the query string for GET requests. For POST requ
 <p>Triggers an event on one or more channels.
 The event data should not be larger than 10KB. If you attempt to POST an event with a larger data parameter you will receive a 413 error code. If you have a use case which requires a larger messages size please <a href="https://support.pusher.com">get in touch</a>.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
 <div class="paragraph">
-<p><strong>Note:</strong> For POST requests we recommend including parameters in the JSON body. If using the query string, arrays should be sent as channels[]=channel1&amp;channels[]=channel2; this is more verbose than the JSON representation.</p>
+<p>For POST requests we recommend including parameters in the JSON body. If using the query string, arrays should be sent as channels[]=channel1&amp;channels[]=channel2; this is more verbose than the JSON representation.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="sect3">
 <h4 id="request">Request</h4>
@@ -800,9 +811,23 @@ requests.</p>
 <p>The request path (e.g. <code>/some/resource</code>).</p>
 </li>
 <li>
-<p>The query parameters sorted by key, with keys converted to lowercase, then joined as in the query string. Note that the string must not be url escaped (e.g. given the keys <code>auth_key</code>: <code>foo</code>, <code>Name</code>: <code>Something else</code>, you get <code>auth_key=foo&amp;name=Something else</code>).</p>
+<p>The query parameters sorted by key, with keys converted to lowercase, then joined as in the query string.</p>
 </li>
 </ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The string must not be url escaped (e.g. given the keys <code>auth_key</code>: <code>foo</code>, <code>Name</code>: <code>Something else</code>, you get <code>auth_key=foo&amp;name=Something else</code>).</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>See below for a worked example.</p>
@@ -895,7 +920,7 @@ Content-Type: application/json
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2015-04-10 14:59:34 BST
+Last updated 2015-04-20 13:32:40 BST
 </div>
 </div>
 </body>
