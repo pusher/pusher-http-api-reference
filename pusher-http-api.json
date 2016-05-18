@@ -114,7 +114,7 @@
       ],
       "post": {
         "summary": "Trigger an event",
-        "description": "Published an event to 1-N channels.\n",
+        "description": "Publishes an event to 1-N channels.\n",
         "operationId": "triggerEvent",
         "parameters": [
           {
@@ -124,6 +124,94 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/TriggerEvent"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An empty JSON object",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Bad request - Client error, details in the body"
+          },
+          "401": {
+            "description": "Unauthorized - Authentication error"
+          },
+          "403": {
+            "description": "Forbidden - App disabled or over quota"
+          },
+          "413": {
+            "description": "Request entity too large - Event message over 10k"
+          },
+          "500": {
+            "description": "Internal server error - Something bad happened"
+          },
+          "503": {
+            "description": "Service unavailable - Pusher is down !"
+          }
+        }
+      }
+    },
+    "/apps/{app_id}/batch_events": {
+      "parameters": [
+        {
+          "name": "app_id",
+          "in": "path",
+          "description": "Application ID",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "auth_key",
+          "in": "query",
+          "description": "Application Key",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "auth_timestamp",
+          "in": "query",
+          "required": true,
+          "description": "The number of seconds since January 1, 1970 00:00:00 GMT. The server\nwill only accept requests where the timestamp is within 600s of the\ncurrent time.\n",
+          "type": "integer"
+        },
+        {
+          "name": "auth_version",
+          "in": "query",
+          "required": true,
+          "description": "Authentication version, currently \"1.0\".",
+          "type": "string"
+        },
+        {
+          "name": "body_md5",
+          "in": "query",
+          "required": false,
+          "description": "If the request body is nonempty, this parameter must contain the\nhexadecimal MD5 hash of the body.\n",
+          "type": "string"
+        },
+        {
+          "name": "auth_signature",
+          "in": "query",
+          "description": "Generated auth signature",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "post": {
+        "summary": "Trigger multiple events",
+        "description": "Publishes multiple events at the same time.\n",
+        "operationId": "triggerBatchEvent",
+        "parameters": [
+          {
+            "name": "events",
+            "in": "body",
+            "description": "Events to publish",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EventsBatch"
             }
           }
         ],
@@ -427,8 +515,7 @@
           "type": "string",
           "description": "Name of the channel to publish to",
           "minLength": 1,
-          "maxLength": 255,
-          "pattern": "/^TODO$/"
+          "maxLength": 255
         },
         "channels": {
           "type": "array",
@@ -452,6 +539,50 @@
       },
       "required": [
         "name",
+        "data"
+      ]
+    },
+    "EventsBatch": {
+      "type": "object",
+      "properties": {
+        "batch": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Event"
+          }
+        }
+      }
+    },
+    "Event": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the event",
+          "minLength": 1,
+          "maxLength": 255,
+          "pattern": "/^[^:]$/"
+        },
+        "channel": {
+          "type": "string",
+          "description": "Name of the channel to publish to",
+          "minLength": 1,
+          "maxLength": 255
+        },
+        "data": {
+          "type": "string",
+          "description": "Payload of the event",
+          "maxLength": 10000
+        },
+        "socket_id": {
+          "type": "string",
+          "description": "When set, don't sent the event that specific socket",
+          "pattern": "/^\\d+\\.\\d+$/"
+        }
+      },
+      "required": [
+        "name",
+        "channel",
         "data"
       ]
     },

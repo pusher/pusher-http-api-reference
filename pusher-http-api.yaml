@@ -143,7 +143,7 @@ paths:
     post:
       summary: Trigger an event
       description: |
-        Published an event to 1-N channels.
+        Publishes an event to 1-N channels.
       operationId: triggerEvent
       parameters:
         - name: event
@@ -169,6 +169,40 @@ paths:
           description: Internal server error - Something bad happened
         503:
           description: Service unavailable - Pusher is down !
+
+  /apps/{app_id}/batch_events:
+    parameters: *CommonParams
+    post:
+      summary: Trigger multiple events
+      description: |
+        Publishes multiple events at the same time.
+      operationId: triggerBatchEvent
+      parameters:
+        - name: events
+          in: body
+          description: Events to publish
+          required: true
+          schema:
+            $ref: '#/definitions/EventsBatch'
+      responses:
+        200:
+          description: An empty JSON object
+          schema:
+            type: object
+        400:
+          description: Bad request - Client error, details in the body
+        401:
+          description: Unauthorized - Authentication error
+        403:
+          description: Forbidden - App disabled or over quota
+        413:
+          description: Request entity too large - Event message over 10k
+        500:
+          description: Internal server error - Something bad happened
+        503:
+          description: Service unavailable - Pusher is down !
+
+
 
   /apps/{app_id}/channels:
     parameters: *CommonParams
@@ -291,7 +325,7 @@ definitions:
         description: Name of the channel to publish to
         minLength: 1
         maxLength: 255
-        pattern: /^TODO$/
+        #pattern: /^TODO$/
       channels:
         type: array
         items:
@@ -310,6 +344,43 @@ definitions:
     required:
       - name
       - data
+      
+  EventsBatch:
+    type: object
+    properties:
+      batch:
+        type: array
+        items:
+          $ref: '#/definitions/Event'
+
+  Event:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Name of the event
+        minLength: 1
+        maxLength: 255
+        pattern: /^[^:]$/
+      channel:
+        type: string
+        description: Name of the channel to publish to
+        minLength: 1
+        maxLength: 255
+        #pattern: /^TODO$/
+      data:
+        type: string
+        description: Payload of the event
+        maxLength: 10000
+      socket_id:
+        type: string
+        description: When set, don't sent the event that specific socket
+        pattern: /^\d+\.\d+$/
+    required:
+      - name
+      - channel
+      - data
+  
   Channels:
     type: object
     required:
