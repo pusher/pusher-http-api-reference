@@ -276,13 +276,7 @@ If you're having difficulty generating the correct signature in your library ple
 
 == Changelog
 
-=== Version 2 (???)
-
-Added event buffer support.
-
-Events that have been published have an associated event ID.
-
-=== Version 1
+=== Version 1.0.0
 
 Initial release
 
